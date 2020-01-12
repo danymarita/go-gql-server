@@ -4,14 +4,15 @@ import (
 	"log"
 
 	"github.com/danymarita/go-gql-server/internal/handlers"
+	"github.com/danymarita/go-gql-server/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
-var HOST, PORT string
+var host, port string
 
 func init() {
-	HOST = "localhost"
-	PORT = "8080"
+	host = utils.MustGet("GQL_SERVER_HOST")
+	port = utils.MustGet("GQL_SERVER_PORT")
 }
 
 func Run() {
@@ -19,6 +20,6 @@ func Run() {
 	// Setup a route
 	r.GET("/ping", handlers.Ping())
 
-	log.Printf("Running at http://%s:%s", HOST, PORT)
-	log.Fatalln(r.Run(HOST + ":" + PORT))
+	log.Printf("Running at http://%s:%s", host, port)
+	log.Fatalln(r.Run(host + ":" + port))
 }
